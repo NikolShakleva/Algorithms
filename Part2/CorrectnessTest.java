@@ -3,8 +3,8 @@ import java.util.Arrays;
 public class CorrectnessTest {
    private static String [] algo = {"QuickSortClassic","DualPivotQuickSort","ThreePivotQuickSort"};
    private static String [] mode = {"increasing", "decreasing", "same", "random", "equal", "semi-sorted"};
-   private static int seed = 1234;
-   private static int N = 20;
+   private static int seed = 3658;
+   private static int N = 30;
    
 
    public static void main(String[] args) {
@@ -56,6 +56,7 @@ public class CorrectnessTest {
                 return false;
             }
         }
+        System.out.println("Success");
         return true;
     }
 
