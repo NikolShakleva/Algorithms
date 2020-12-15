@@ -1,6 +1,4 @@
-import java.util.Arrays;
-
-public class DualPivotQuickSort implements Sort {
+public class DualPivotQuickSortWrong  implements Sort{
     public static void sort(int[] A, int left, int right) {
         
         //assume a sentinel A[0] = minus infinity
@@ -8,7 +6,7 @@ public class DualPivotQuickSort implements Sort {
             int p = A [left];
             int q = A [right];
             
-            if (p > q){           
+            if (p > q){            
                 int temp = p;
                 p = q;
                 q = temp;
@@ -22,7 +20,7 @@ public class DualPivotQuickSort implements Sort {
             
             while (k <= g){
                 //SWAP
-                if (A[k] < p) {      
+                if (A[k] < p) {        
                     int temp = A[k];
                     A[k] = A[l];
                     A[l] = temp;
@@ -30,7 +28,7 @@ public class DualPivotQuickSort implements Sort {
                 }
                 else {
                     if (A[k] > q){
-                        while ((A[g] > q) &&  (k <g)){
+                        while (A[g] > q){
                             g = g-1;
                         }
                         // SWAP A[k] and A[g] and decrement g
@@ -69,11 +67,4 @@ public class DualPivotQuickSort implements Sort {
     }
 
 
-    public static void main(String[] args) {
-        int[] A = {130, 15, 13, 110, 12, -125, 126, 14};
-
-        DualPivotQuickSort.sort(A, 0, A.length-1);
-        System.out.println(Arrays.toString(A));
-    }
-    
 }

@@ -19,8 +19,7 @@ public class ThreePivotQuickSort implements Sort {
         int q = A[left +1];
         int r = A[right];
 
-            //EXTRA///////////////////////
-        // while (!(p < q )&& (q < r)){
+       
             if (p > r){
             int temp = p;
             p = r;
@@ -29,7 +28,7 @@ public class ThreePivotQuickSort implements Sort {
             A [right] = r;
             }
 
-            if (p > q){             // TODO: 
+            if (p > q){             
                 int temp = p;
                 p = q;
                 q = temp;
@@ -44,10 +43,9 @@ public class ThreePivotQuickSort implements Sort {
                 A[left + 1] = q;
                 A[right] = r;
             }
-        // }
-        //////////////////////////////////////////////
+      
         while (b <= c){
-            while (A[b] < q && b<c){
+            while (A[b] < q && b<=c){
                 if(A[b]< p){
                     //SWAP (A[a], A[b])
                     int temp = A[a];
@@ -142,11 +140,6 @@ public class ThreePivotQuickSort implements Sort {
         int keeper = A[right];
         A[right] = A[d];
         A[d] = keeper;
-
-        // threeSort(A, left, a-2);
-        // threeSort(A, a+2, b-2);
-        // threeSort(A, b+2, d-1);
-        // threeSort(A, d+1, right);
 
         sort(A, left, a-1);
         sort(A, a+1, b-1);
