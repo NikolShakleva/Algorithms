@@ -36,6 +36,8 @@ public class Benchmark {
             else if (algorithm.equals("DualPivotQuickSortWrong"))  {DualPivotQuickSortWrong.sort(A, 0, A.length-1);}
             else if (algorithm.equals("ThreePivotQuickSort"))      {ThreePivotQuickSort.sort(A, 0, A.length-1);}
             else if (algorithm.equals("ThreePivotQuickSortWrong")) {ThreePivotQuickSortWrong.sort(A, 0, A.length-1);}
+            else if (algorithm.equals("Standard"))                 {Arrays.sort(A);}
+            else if (algorithm.equals("InsertionSort"))            {InsertionSort.sort(A);}
     
             if(!correctnessTest(A)) return "FAILURE";
         }
@@ -93,14 +95,24 @@ public class Benchmark {
                     ThreePivotQuickSortWrong.sort(A, 0, A.length-1);
                     t.pause();
                 }
+                else if (algorithm.equals("Standard")) {
+                    t.play();
+                    Arrays.sort(A);
+                    t.pause();
+                }
+                else if (algorithm.equals("InsertionSort")) {
+                    t.play();
+                    InsertionSort.sort(A);
+                    t.pause();
+                }
                 if(!correctnessTest(A)) return "Failure";
             }
             double time = t.check() / iterations;
             st  += time;
             sst += time * time;
         }
-        mean = (st/n)/ 1000;
-        sdev = (Math.sqrt((sst - mean * mean * n)/(n-1)))/1000;
+        mean = (st/n);
+        sdev = (Math.sqrt((sst - mean * mean * n)/(n-1)));
 
         System.out.printf( "%12s  %6.1f mu  +/-  %6.3f %n", algorithm, mean, sdev);
 

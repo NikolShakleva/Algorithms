@@ -28,16 +28,20 @@ import java.util.Date;
 
 public class Experiment {
 
-    private static String[] algorithms      = {"QuickSortClassic","DualPivotQuickSort","ThreePivotQuickSort"};
-    private static final String[] modeArray = {"increasing", "decreasing", "same", "random", "equal", "semi-sorted"};
+    //private static String[] algorithms      = {"QuickSortClassic","DualPivotQuickSort","ThreePivotQuickSort"};
+    //private static String[] algorithms      ={"ThreePivotQuickSort", "Standard"};
+    private static String[] algorithms        = {"QuickSortClassic","InsertionSort", "DualPivotQuickSort","ThreePivotQuickSort"};
+    //private static final String[] modeArray =  {"increasing", "decreasing", "same", "random", "equal", "semi-sorted"};
+     private static final String[] modeArray   = {"random"};
     //private static final int[] N            = { 100, 20, 500, 1000};
-    //  private static final int[] K            = { 4, 8, 10, 12 };
-    private static final int[] N            = { 10_000};
 
-    private static final int n = 2;
+    //private static final int[] N            = {20_000, 50_000, 100_000, 1_000_000, 5_000_000};
+    private static final int[] N            = {5, 10, 20, 50, 80};
+
+    private static final int n = 10;
     private static final int seed = 1234;
     private static final int runPerSeed = 2;
-    private static final int iterations = 10;
+    private static final int iterations = 10_000;
     private static String dir;
    
 
@@ -61,15 +65,16 @@ public class Experiment {
                     System.out.println("-------------------------------------");
                     System.out.println(algorithms[a] + " with mode: " + modeArray[i]);
                     
-                    int[] seedArray = Seed.createSeed(seed);                                    
-                    for (int l = 0; l < seedArray.length; l++) {                 // FOR EACH SEED ///////////////
-                        for (int j = 0; j < N.length; j++) {                     // FOR EACH N     /////////////
+                    int[] seedArray = Seed.createSeed(seed);      
+   
+                    for (int j = 0; j < N.length; j++) {       
+                        double mean = 0.0;
+                        double sDev = 0.0;                      
+                        for (int l = 0; l < seedArray.length; l++) {                 // FOR EACH SEED ///////////////
+                                           // FOR EACH N     /////////////
                             System.out.println("-------------------------------------");
                             System.out.println("N: " + N[j] + " and Seed: " + seedArray[l]);
                             System.out.println("-------------------------------------");
-
-                            double mean = 0.0;
-                            double sDev = 0.0;
 
                             for (int r = 0; r < runPerSeed; r++) {              // We run each SEED and N several times
                                 int[] inputArray = Producer.generate(modeArray[i], N[j], seedArray[l]);
@@ -81,14 +86,14 @@ public class Experiment {
                                 mean += tempMean;
                                 sDev += tempSdev;
                                 
-                            }
-                            double totalMean = mean / runPerSeed;        // Dividing mean with RunPerSeed
-                            double totalSdev = sDev / runPerSeed;        // Dividing sDev with RunPerSeed
-                            sb.append(algorithms[a] + " " + N[j] + " " + totalMean + " " +     // Adding test data with N, mean, sDev
-                                                    totalSdev + "\n");
-                                
+                            }   
                         }
+                        double totalMean = mean / (runPerSeed* seedArray.length);        // Dividing mean with RunPerSeed
+                        double totalSdev = sDev / (runPerSeed* seedArray.length);        // Dividing sDev with RunPerSeed
+                        sb.append(algorithms[a] + " " + N[j] + " " + totalMean + " " +     // Adding test data with N, mean, sDev
+                                                    totalSdev + "\n");
                     } 
+
                 }
                 addMeasurements(sb, file);   
                                             // Adding all the measurements to the data files
@@ -105,8 +110,8 @@ public class Experiment {
         System.out.println("Running the warm-up...");
         String correctness = "";
         for (int i = 0; i < modeArray.length; i ++) {
-            for(int a = 0; a< algorithms.length ; a++){
-                for (int j = 0; j < 1; j++) {                                          
+            for(int a = 0; a < algorithms.length ; a++){
+                for (int j = 0; j < 2; j++) {                                          
                     int[] inputArray = Producer.generate(modeArray[i], N[j], seed);
 
                     correctness = Benchmark.warmUp(inputArray,(iterations * n), algorithms[a]);
@@ -179,7 +184,7 @@ public class Experiment {
         System.out.printf("# Date: %s%n", 
           new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(now));
           System.out.println();
-          System.out.println("BENCHMARKING Binary Search");
+          System.out.println("BENCHMARKING Quick Sort");
           System.out.println("-------------------------------------");
           System.out.println();
       }
