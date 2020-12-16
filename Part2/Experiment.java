@@ -13,12 +13,13 @@ import java.util.Date;
  *                  Search.java  Tabulation.java, BinarySearch.java
  *                  
  * 
- * This Experiment Class tests the runningtime for Binary Search.
+ * This Experiment Class tests the runningtime for different Quick Sort implementations.
  * A new direcotry will be made and filled with algorithm * mode files with the test data
  * 
- * To add a new algorithm to the test, make sure that it implements the Search interface,
- * add it as a string to the algorithms String array in this class
- * and add an if statement to the searchObject method in the Benchmarking Class.
+ * To add a new algorithm to the test: 
+ *  - make sure that it implements the Sort interface,
+ *  - add it as a string to the algorithms String array in the Part2 class
+ *  - add a new switch statement in the Benchmarking class.
  * 
  * @author  Emelie Skörvald emsk@itu.dk
  * @author  Nikol Shakleva  nikv@itu.dk
@@ -28,26 +29,23 @@ import java.util.Date;
 
 public class Experiment {
 
-    //private static String[] algorithms      = {"QuickSortClassic","DualPivotQuickSort","ThreePivotQuickSort"};
-    //private static String[] algorithms      ={"ThreePivotQuickSort", "Standard"};
-    private static String[] algorithms        = {"QuickSortClassic","InsertionSort", "DualPivotQuickSort","ThreePivotQuickSort"};
-    //private static final String[] modeArray =  {"increasing", "decreasing", "same", "random", "equal", "semi-sorted"};
-     private static final String[] modeArray   = {"random"};
-    //private static final int[] N            = { 100, 20, 500, 1000};
-
-    //private static final int[] N            = {20_000, 50_000, 100_000, 1_000_000, 5_000_000};
-    private static final int[] N            = {5, 10, 20, 50, 80};
-
     private static final int n = 10;
     private static final int seed = 1234;
-    private static final int runPerSeed = 2;
+    private static final int runPerSeed = 5;
     private static final int iterations = 10_000;
     private static String dir;
    
-
-    public static void main(String args[]) {
+    /**
+     * Performs the Experiment
+     * 
+     * @param algorithms
+     * @param modeArray
+     * @param N
+     */
+    public static void experiment(String[] algorithms, String[] modeArray, int[] N) {
+        
         systemInfo();                                                       // Prints info about the machine doing the experiment
-        warmUp();                                                           // Warmup for the Benchmark                                                              
+        warmUp(algorithms, modeArray, N);                                                           // Warmup for the Benchmark                                                              
         createDir();                                                        // Creates a directory string for test data
 
         // RUNNING THE EXPERIMENT
@@ -105,7 +103,7 @@ public class Experiment {
     /**
      * Warms up the Benchmarking iterations * n times
      */
-    public static void warmUp() {
+    public static void warmUp(String[] algorithms, String[]modeArray, int[] N) {
 
         System.out.println("Running the warm-up...");
         String correctness = "";

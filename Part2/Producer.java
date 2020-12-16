@@ -56,12 +56,12 @@ public class Producer {
             case "semi-sorted":
             // check how many filled items are in the array
             int count = 0;
-                for(int i = 0; i + 3 < N ; i += 3) {
+                for(int i = 0; i + 2 < N ; i += 2) {
                     int n = R.nextInt();
                     vals[i]   = n;
                     vals[i+1] = n+1;
-                    vals[i+2] = n+2;
-                    count = count + 3;
+                    //vals[i+2] = n+2;
+                    count = count + 2;
                 }
         //  if the count is smaller then N we need to fill the rest of the array
             if(count!=N) {

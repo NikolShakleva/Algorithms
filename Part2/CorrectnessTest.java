@@ -6,22 +6,17 @@ import java.util.Arrays;
  *  java -Xss2g CorrectnessTest
  */
 
-
-/**
- * the variable algo has two differnt values, the second one is used to test the correctness of removing boundary checks
- * from the dual and three pivot quicksort algorithms.
- * 
- */
 public class CorrectnessTest {
-   //private static String[] algo = {"QuickSortClassic","DualPivotQuickSort","ThreePivotQuickSort"};
-   private static String[] algo = {"DualPivotQuickSort",  "DualPivotQuickSortWrong","ThreePivotQuickSort", "ThreePivotQuickSortWrong"};
-   private static String[] mode = {"increasing", "decreasing", "same", "random", "equal", "semi-sorted"};
 
    private static int   N       = 200_000;
    private static int[] seed    = Seed.createSeed(1234);
   
-   
-
+    /**
+     * 
+     * @param inputArray
+     * @param algorithm
+     * @return
+     */
     public static String test (int[] inputArray, String algorithm) {
 
         if      (algorithm.equals("QuickSortClassic"))         {QuickSortClassic.sort(inputArray, 0, inputArray.length-1);}
@@ -30,7 +25,7 @@ public class CorrectnessTest {
         else if (algorithm.equals("ThreePivotQuickSort"))      {ThreePivotQuickSort.sort(inputArray, 0, inputArray.length-1);}
         else if (algorithm.equals("ThreePivotQuickSortWrong")) {ThreePivotQuickSortWrong.sort(inputArray, 0, inputArray.length-1);}
 
-            if(!correctnessTest(inputArray)) return "FAILURE";
+        if(!correctnessTest(inputArray)) return "FAILURE";
         
         return "SUCCESS";
     } 
@@ -49,22 +44,23 @@ public class CorrectnessTest {
     public static Boolean correctnessTest(int[] A){
         int[] libraryArray = A.clone();
         Arrays.sort(libraryArray);
-            if(!Arrays.equals(A, libraryArray)) {
-                // System.out.println( algo[l] + Arrays.toString(A[l]));
-                // System.out.println( "Library quickSort" + Arrays.toString(libraryArray));
-                return false;
-            }
-        // System.out.println("SUCCESS");
+
+        if(!Arrays.equals(A, libraryArray)) return false;
+
         return true;
     }
 
-    
-    public static void main(String[] args) {
+    /**
+     * 
+     * @param algo
+     * @param mode
+     */
+    public static void runTest(String[] algo, String[] mode) {
         for (int i = 0; i < mode.length; i++) {
             for(int  l = 0; l< seed.length; l++) {
                 for(int j = 0; j < algo.length; j++) {
                     int [] inputArray = Producer.generate(mode[i], N, seed[l]);
-                    //  System.out.println("Correctness test for: " + algo[j] + " mode " + mode[i] + " seed: " + seed[l]);
+
                     String value =  test(inputArray, algo[j]);
                     if(value.equals("FAILURE")) {
                         System.out.println("FAILURE. " + algo[j]  + " is not correct for mode: " + mode[i] + " for seed: " + seed[l]);
