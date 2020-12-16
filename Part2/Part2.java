@@ -18,21 +18,27 @@ public class Part2 {
         
     // Taks 4, testing correctness of all algorithms
     CorrectnessTest.runTest(allAlgorithms, allModes);
+    // CorrectnessTest.runTest(optimized, allModes);
 
-    // Task 4, test removing boundary checks
-    CorrectnessTest.runTest(boundaryCheck, allModes);
 
-    // Task 5, performance test, average runningtime
-    Experiment.experiment(allAlgorithms, allModes, NLarge);
+    // // Task 4, test removing boundary checks
+    // CorrectnessTest.runTest(boundaryCheck, allModes);
 
-    // Task 5, performance test, average runningtime Library vs Quickest
-    Experiment.experiment(quickestAndLibrary, allModes, NLarge);
+    // // Task 5, performance test, average runningtime
+    // Experiment.experiment(allAlgorithms, allModes, NLarge);
 
-    // Task 5, test all algorithms vs Insertion sort to find optimal array sizes
-    ExperimentInsertion.experiment(insertionSortTest, modeRandom, NInsertion);
+    // // Task 5, performance test, average runningtime Library vs Quickest
+    // Experiment.experiment(quickestAndLibrary, allModes, NLarge);
 
-    // Task 5, performance test, average runningtime for new implementation with Insertion sort
-    Experiment.experiment(optimized, allModes, NLarge);
+    // // Task 5, test all algorithms vs Insertion sort to find optimal array sizes
+    // ExperimentInsertion.experiment(insertionSortTest, modeRandom, NInsertion);
+
+    // // Task 5, performance test, average runningtime for new implementation with Insertion sort
+    // Experiment.experiment(optimized, allModes, NLarge);
+
+
+
+
 
     }
 }
