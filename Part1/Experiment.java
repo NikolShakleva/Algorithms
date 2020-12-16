@@ -82,8 +82,8 @@ public class Experiment {
                             double[] sDev = new double[algorithms.length];
 
                             for (int r = 0; r < runPerSeed; r++) {              // We run each SEED and N several times
-                                String inputArray = Producer.generate(createTestData(i,   j, seedArray[l]));
-                                String inputPred  = Producer.generate(createTestData(i+1, j, seedArray[l]));
+                                String inputArray = Producer.generate(modeArray[i],   N[j], seedArray[l]);
+                                String inputPred  = Producer.generate(modeArray[i+1],   N[j], seedArray[l]);
 
                                 Benchmark.run(inputArray, inputPred, iterations, n, algorithms, K[k]);
 
@@ -120,8 +120,8 @@ public class Experiment {
         for (int i = 0; i < modeArray.length; i += 2) {
             
             for (int j = 0; j < 1; j++) {                                          
-                String inputArray = Producer.generate(createTestData(i,   j, seed));
-                String inputPred  = Producer.generate(createTestData(i+1, j, seed));
+                String inputArray = Producer.generate(modeArray[i],   N[j], seed);
+                String inputPred  = Producer.generate(modeArray[i+1],   N[j], seed);
 
                 correctness = Benchmark.warmUp(inputArray, inputPred, 
                                                 (iterations * n), algorithms);
@@ -175,16 +175,6 @@ public class Experiment {
         return writer;
     }
 
-    /** Creates the String[] that will be passed to the producer
-     * 
-     * @param j     index of the current mode
-     * @param k     index of the current N
-     * @param seed  the current seed
-     * @return      returns a String[] for the producer
-     */
-    public static String[] createTestData(int i, int j, int seed){
-        return new String[] {modeArray[i], Integer.toString(N[j]), seed + ""};
-    }
 
     /**
      * Prints information of the system creating the test

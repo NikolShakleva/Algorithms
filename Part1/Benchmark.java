@@ -139,9 +139,9 @@ public class Benchmark {
      * @param st    a double array with st for each algorithm
      * @param sst   a double array with sst for each algorithm
      */
-    public static void addTime(int a, int i, double[] st, double[] sst) {
+    public static void addTime(int a, int iterations, double[] st, double[] sst) {
         for(int m = 0; m < a ; m++){    
-            double time = t[m].check() / i;
+            double time = t[m].check() / iterations;
             st[m]  += time;
             sst[m] += time * time;
         }

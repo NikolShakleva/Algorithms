@@ -14,12 +14,10 @@ import java.util.stream.IntStream;
 public class Producer {
     
 
-        public static String generate (String[] args) {
+        public static String generate (String mode, int N, int seed) {
 
-        final String mode = args[0];
-        final int N = Integer.parseInt(args[1]);
         final Random R = new Random();
-        R.setSeed(Integer.parseInt(args[2]));
+        R.setSeed(seed);
         StringBuilder sbvals = new StringBuilder();
       
         final List<Integer> vals = new ArrayList<>();
