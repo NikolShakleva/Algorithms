@@ -112,13 +112,13 @@ public class ThreePivotQuickSort implements Sort {
             c = c + 1; 
             d = d + 1;
             //swap(A[left + 1],A[a]), swap(A[a],A[b])
-        swap(A, left+1, a);
+            swap(A, left+1, a);
 
             swap(A, a, b);
             a = a - 1;
             
             //swap(A[left],A[a]), swap(A[right],A[d])
-        swap(A, left, a);
+            swap(A, left, a);
 
             swap(A, right, d);
 
