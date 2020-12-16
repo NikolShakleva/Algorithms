@@ -34,7 +34,7 @@ public class Benchmark {
             for(int j = 0; j < algorithms ; j++ ) {
                 Search search = searchObject(algo[j], inputArray, 10);  
 
-                dummy[j] = search.pred(inputPred);
+                dummy[j] = search.readingQuery(inputPred);
             }
 
             if(!correctnessTest(algorithms, dummy)) return "Failure";
@@ -75,7 +75,7 @@ public class Benchmark {
                     Search search = searchObject(algo[j], inputArray, K);  
 
                     t[j].play();
-                    dummy[j] = search.pred(inputPred);
+                    dummy[j] = search.readingQuery(inputPred);
                     t[j].pause();
                 }
                 if(!correctnessTest(algorithms, dummy)) return "Failure";

@@ -1,3 +1,5 @@
 interface Search {
-    public String pred(String inputPred);
+    public String pred(int inputPred);
+    public String readingQuery(String inputPred);
+
 }
