@@ -1,11 +1,25 @@
+
 public class ThreePivotQuickSortWrong implements Sort {
+   
     
+     /**
+     * 
+     * @param A int array the swap has to be called on
+     * @param i int to swap
+     * @param j int to swap
+     */   
     public static  void swap (int [] A, int i, int j ) {
         int temp = A[i];
         A[i] = A[j];
         A[j] = temp;
-}
+    }
  
+     /**
+     * 
+     * @param A int array to sort
+     * @param left the left index of where the array starts
+     * @param right the right index of where the array ends
+     */
     public static void sort(int[] A, int left, int right){
 
         if (right - left >= 1){
@@ -20,13 +34,12 @@ public class ThreePivotQuickSortWrong implements Sort {
             int q = A[left +1];
             int r = A[right];
 
-        
                 if (p > r){
-                int temp = p;
-                p = r;
-                r = temp;
-                A[left] = p;
-                A [right] = r;
+                    int temp = p;
+                    p = r;
+                    r = temp;
+                    A[left] = p;
+                    A [right] = r;
                 }
 
                 if (p > q){             
@@ -49,7 +62,7 @@ public class ThreePivotQuickSortWrong implements Sort {
                 while (A[b] < q){
                     if(A[b]< p){
                         //SWAP (A[a], A[b])
-                    swap(A,a,b);
+                        swap(A,a,b);
                         a = a + 1;
                     }
                     b = b + 1;
@@ -68,9 +81,7 @@ public class ThreePivotQuickSortWrong implements Sort {
                         if (A[c] < p){
                             // swap (A[b],A[a]), swap (A[a],A[c])
                             swap(A, b, a);
-
                             swap(A, a, c);
-                            //increment a
                             a = a +1;
                         }
                         else {
@@ -87,14 +98,12 @@ public class ThreePivotQuickSortWrong implements Sort {
                         if (A[c] < p){
                             //swap(A[b],A[a]), swap(A[a],A[c])
                             swap(A, b, a);
-
-                        swap(A, a, c);
-                            
+                            swap(A, a, c);
                             a = a +1;
                         }
                         else {
                             //swap(A[b],A[c])
-                        swap(A, b, c);
+                            swap(A, b, c);
                         }
                         b = b + 1;
                         c = c - 1;
@@ -106,14 +115,12 @@ public class ThreePivotQuickSortWrong implements Sort {
             c = c + 1; 
             d = d + 1;
             //swap(A[left + 1],A[a]), swap(A[a],A[b])
-        swap(A, left+1, a);
-
+            swap(A, left+1, a);
             swap(A, a, b);
             a = a - 1;
             
             //swap(A[left],A[a]), swap(A[right],A[d])
-        swap(A, left, a);
-
+            swap(A, left, a);
             swap(A, right, d);
 
             sort(A, left, a-1);

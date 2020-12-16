@@ -38,14 +38,14 @@ public class Experiment {
     /**
      * Performs the Experiment
      * 
-     * @param algorithms
-     * @param modeArray
-     * @param N
+     * @param algorithms String array for the algorithms the experiment will run with
+     * @param modeArray String array for the input types the experiment will run with
+     * @param N int array for the 
      */
     public static void experiment(String[] algorithms, String[] modeArray, int[] N) {
         
         systemInfo();                                                       // Prints info about the machine doing the experiment
-        warmUp(algorithms, modeArray, N);                                                           // Warmup for the Benchmark                                                              
+        warmUp(algorithms, modeArray, N);                                   // Warmup for the Benchmark                                                              
         createDir();                                                        // Creates a directory string for test data
 
         // RUNNING THE EXPERIMENT
@@ -56,20 +56,17 @@ public class Experiment {
                 FileWriter file = createFile(modeArray[i]);          
                 StringBuilder sb = new StringBuilder();   
     
-                                                                // Try/catch for FileWriter
                 System.out.println();
-                for (int a = 0; a < algorithms.length; a++) {               // FOR EACH ALGORITHM ////////////
-
+                for (int a = 0; a < algorithms.length; a++) {               // FOR EACH ALGORITHM 
                     System.out.println("-------------------------------------");
                     System.out.println(algorithms[a] + " with mode: " + modeArray[i]);
                     
                     int[] seedArray = Seed.createSeed(seed);      
    
-                    for (int j = 0; j < N.length; j++) {       
+                    for (int j = 0; j < N.length; j++) {                     // FOR EACH N 
                         double mean = 0.0;
                         double sDev = 0.0;                      
-                        for (int l = 0; l < seedArray.length; l++) {                 // FOR EACH SEED ///////////////
-                                           // FOR EACH N     /////////////
+                        for (int l = 0; l < seedArray.length; l++) {         // FOR EACH SEED 
                             System.out.println("-------------------------------------");
                             System.out.println("N: " + N[j] + " and Seed: " + seedArray[l]);
                             System.out.println("-------------------------------------");
@@ -86,22 +83,27 @@ public class Experiment {
                                 
                             }   
                         }
-                        double totalMean = mean / (runPerSeed* seedArray.length);        // Dividing mean with RunPerSeed
-                        double totalSdev = sDev / (runPerSeed* seedArray.length);        // Dividing sDev with RunPerSeed
+                        double totalMean = mean / (runPerSeed* seedArray.length);        // Dividing mean with (RunPerSeed * the seeds)
+                        double totalSdev = sDev / (runPerSeed* seedArray.length);        // Dividing sDev with (RunPerSeed * the seeds)
                         sb.append(algorithms[a] + " " + N[j] + " " + totalMean + " " +     // Adding test data with N, mean, sDev
                                                     totalSdev + "\n");
                     } 
 
                 }
+                 // Adding all the measurements to the data files
                 addMeasurements(sb, file);   
-                                            // Adding all the measurements to the data files
             }
-        } catch (IOException e) { e.printStackTrace();}                 // catch for the FileWriter
-        end();                                                              // Prints end-statment for the experiment
+        } catch (IOException e) { e.printStackTrace();}                
+        end();                                                        // Prints end-statment for the experiment
     }
+
 
     /**
      * Warms up the Benchmarking iterations * n times
+     * 
+     * @param algorithms String array for the algorithms the warmUp will run with
+     * @param modeArray String array for the input types the warmUp will run with
+     * @param N 
      */
     public static void warmUp(String[] algorithms, String[]modeArray, int[] N) {
 
@@ -119,12 +121,12 @@ public class Experiment {
         }
     }
 
-// HELPER FUNCTIONS ///////////////////////////////////////////////////////////////////////////////////
+/**  HELPER FUNCTIONS */
 
     /** Adds all the test data to the the file and closes the FileWriter
      * 
-     * @param sb a StringBuilder array
-     * @param fw a FileWriter array
+     * @param sb a StringBuilder 
+     * @param fw a FileWriter 
      * @throws IOException
      */
     public static void addMeasurements(StringBuilder sb, FileWriter fw) throws IOException {
@@ -147,9 +149,7 @@ public class Experiment {
 
     /** Creates Files for each algorithm and mode
      * 
-     * @param s String of the directory
-     * @param a index of the current algorithm
-     * @param i index of the current mode
+     * @param m String for the mode the file will be created with
      * @return returns the writer
      * @throws IOException
      */

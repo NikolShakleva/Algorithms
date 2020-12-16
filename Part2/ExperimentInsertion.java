@@ -44,7 +44,12 @@ public class ExperimentInsertion {
     private static final int iterations = 1_000;
     private static String dir;
    
-
+/**
+ * 
+ * @param algorithms String array of the algorithms to call the experiment on
+ * @param modeArray String array of the input types to call the experiment with
+ * @param N int array of input sizes
+ */
     public static void experiment(String[] algorithms, String[] modeArray, int[] N) {
         systemInfo();                                                       // Prints info about the machine doing the experiment
         warmUp();                                                           // Warmup for the Benchmark                                                              
@@ -54,14 +59,11 @@ public class ExperimentInsertion {
         System.out.println();
         System.out.println("Running the experiment...");
         try   { 
-                               // For each Mode
                 FileWriter file = createFile("InsertionsSort");          
                 StringBuilder sb = new StringBuilder();   
-    
-                                                                // Try/catch for FileWriter
+
                 System.out.println();
                 for (int a = 0; a < algorithms.length; a++) {               // FOR EACH ALGORITHM ////////////
-                    
                     
                     int[] seedArray = Seed.createSeed(seed);      
    
@@ -71,38 +73,36 @@ public class ExperimentInsertion {
                         for (int i = 0; i < modeArray.length; i++) {   
                             System.out.println("-------------------------------------");
                             System.out.println(algorithms[a] + " with mode: " + modeArray[i]);      
-                        for (int l = 0; l < seedArray.length; l++) {                 // FOR EACH SEED ///////////////
-                                           // FOR EACH N     /////////////
-                            System.out.println("-------------------------------------");
-                            System.out.println("N: " + N[j] + " and Seed: " + seedArray[l]);
-                            System.out.println("-------------------------------------");
+                            for (int l = 0; l < seedArray.length; l++) {                 // FOR EACH SEED ///////////////
+                                System.out.println("-------------------------------------");
+                                System.out.println("N: " + N[j] + " and Seed: " + seedArray[l]);
+                                System.out.println("-------------------------------------");
 
-                            for (int r = 0; r < runPerSeed; r++) {              // We run each SEED and N several times
-                                int[] inputArray = Producer.generate(modeArray[i], N[j], seedArray[l]);
+                                for (int r = 0; r < runPerSeed; r++) {           
+                                    int[] inputArray = Producer.generate(modeArray[i], N[j], seedArray[l]);
+                                    Benchmark.run(inputArray, iterations, n, algorithms[a]);
 
-                                Benchmark.run(inputArray, iterations, n, algorithms[a]);
-
-                                double tempMean = Benchmark.getMean();
-                                double tempSdev = Benchmark.getSdev();
-                                mean += tempMean;
-                                sDev += tempSdev;
-                                
-                            }   
-                        }
-
-                    } 
+                                    double tempMean = Benchmark.getMean();
+                                    double tempSdev = Benchmark.getSdev();
+                                    mean += tempMean;
+                                    sDev += tempSdev;
+                                }   
+                            }
+                        } 
                     double totalMean = mean / (runPerSeed* seedArray.length*modeArray.length);        // Dividing mean with RunPerSeed
                     double totalSdev = sDev / (runPerSeed* seedArray.length*modeArray.length);        // Dividing sDev with RunPerSeed
                     sb.append(algorithms[a] + " " + N[j] + " " + totalMean + " " +     // Adding test data with N, mean, sDev
                                                 totalSdev + "\n");
 
-                }
+                    }
                   
-                                            // Adding all the measurements to the data files
-            }
-             addMeasurements(sb, file); 
-        } catch (IOException e) { e.printStackTrace();}                 // catch for the FileWriter
-        end();                                                              // Prints end-statment for the experiment
+                                            
+                }
+                // Adding all the measurements to the data files
+                addMeasurements(sb, file); 
+        } catch (IOException e) { e.printStackTrace();} 
+
+        end();                                                   // Prints end-statment for the experiment
     }
 
     /**
@@ -124,12 +124,12 @@ public class ExperimentInsertion {
         }
     }
 
-// HELPER FUNCTIONS ///////////////////////////////////////////////////////////////////////////////////
+/** HELPER FUNCTIONS */
 
     /** Adds all the test data to the the file and closes the FileWriter
      * 
-     * @param sb a StringBuilder array
-     * @param fw a FileWriter array
+     * @param sb a StringBuilder 
+     * @param fw a FileWriter 
      * @throws IOException
      */
     public static void addMeasurements(StringBuilder sb, FileWriter fw) throws IOException {
@@ -152,9 +152,7 @@ public class ExperimentInsertion {
 
     /** Creates Files for each algorithm and mode
      * 
-     * @param s String of the directory
-     * @param a index of the current algorithm
-     * @param i index of the current mode
+     * @param m string name of the algorithm
      * @return returns the writer
      * @throws IOException
      */

@@ -2,14 +2,29 @@ import java.util.Arrays;
 
 public class DualPivotQuickSortI implements Sort {
 
+      /**
+     * 
+     * @param A int array the swap has to be called on
+     * @param i int to swap
+     * @param j int to swap
+     */ 
     public static  void swap (int [] A, int i, int j ) {
         int temp = A[i];
         A[i] = A[j];
         A[j] = temp;
     }
 
+      /**
+     * 
+     * @param A int array to sort
+     * @param left the left index of where the array starts
+     * @param right the right index of where the array ends
+     */
     public static void sort(int[] A, int left, int right) {
+
         int size = A.length;
+
+        // if array A is smaller than size 30, insertion sort is called on it
         if (size < 30){
             InsertionSort.sort(A);
         }

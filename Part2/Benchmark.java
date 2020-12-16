@@ -49,8 +49,9 @@ public class Benchmark {
      * Running the benchmark for the algorithms, all algorithms run after eachother and
      * the output is sent to a correctness test to make sure that they are correct.
      * 
-     * @param inputArray    String with input data
-     * @param n             integer of how many times the test will be ran
+     * @param inputArray    int array with input data
+     * @param iteration     number of iterations
+     * @param n             integer of how many times the test will be run
      * @param algorithm     a String with the algorithm that will be tested    
      * @return              a string Failure or Success  
      */
@@ -128,14 +129,14 @@ public class Benchmark {
     }
 
 
-    /**
+     /**
      * correctnessTest
      * 
-     * Tests that all the output of the algorithms are the same. If they are not
-     * that means that one or more algorithms are incorrect.
+     * Checks that an array sorted by Java's library sort implementation 
+     * and a given array are the same. 
      * 
-     * @param A         the input array that are sorted
-     * @return          a boolean if the output are the same
+     * @param A  the int array to be tested that it was correctly sorted
+     * @return  a boolean true if the two arrays are the same
      */
     public static Boolean correctnessTest(int[] A){
         int[] libraryArray = A.clone();

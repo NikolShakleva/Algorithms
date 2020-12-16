@@ -14,7 +14,7 @@ import java.util.Date;
  *                  
  * 
  * This Experiment Class tests the runningtime for Binary Search.
- * A new direcotry will be made and filled with algorithm * mode files with the test data
+ * A new direcotry will be created and filled with algorithm * mode files with the test data
  * 
  * To add a new algorithm to the test, make sure that it implements the Search interface,
  * add it as a string to the algorithms String array in this class
@@ -34,13 +34,9 @@ public class Experiment {
                                                 "random",       "random pred", 
                                                 "same bucket", "same bucket pred" };
     private static final int[] N            = {500, 1_000, 5_000,100_000, 500_000, 1_000_000};
-    //  private static final int[] K            = { 4, 8, 10, 12 };
-    //private static final int[] N            = { 10_000};
+    // private static final int[] K            = { 4, 8, 10, 12 };
+    // private static final int[] N            = { 10_000};
     private static final int[] K            = {5, 10, 15};
-    //private static final int[] K            = {10};
-
-
-
     private static final int n = 10;
     private static final int seed = 1234;
     private static final int runPerSeed = 5;
@@ -57,13 +53,13 @@ public class Experiment {
         System.out.println();
         System.out.println("Running the experiment...");
         
-        for (int i = 0; i < modeArray.length; i=i+2) {                      // For each Mode
+        for (int i = 0; i < modeArray.length; i=i+2) {                      // For each mode
             FileWriter[] file = new FileWriter[algorithms.length];          
             StringBuilder[] sb = new StringBuilder[algorithms.length];      
 
             try   {                                                         // Try/catch for FileWriter
                 System.out.println();
-                for (int a = 0; a < algorithms.length; a++) {               // FOR EACH ALGORITHM ////////////
+                for (int a = 0; a < algorithms.length; a++) {               // FOR EACH ALGORITHM 
                     file[a] = createFile(a, i);                             // FileWriter for each algorithm
                     sb[a] = new StringBuilder();                            // Stringbuilder for each algorithm
                 }
@@ -71,9 +67,9 @@ public class Experiment {
                 System.out.println("All Algorithms with mode: " + modeArray[i]);
                 
                 int[] seedArray = Seed.createSeed(seed);                                    
-                for (int l = 0; l < seedArray.length; l++) {                 // FOR EACH SEED ///////////////
-                    for (int j = 0; j < N.length; j++) {                     // FOR EACH N     /////////////
-                        for (int k = 0; k < K.length;k++ ){
+                for (int l = 0; l < seedArray.length; l++) {                 // FOR EACH SEED 
+                    for (int j = 0; j < N.length; j++) {                     // FOR EACH N
+                        for (int k = 0; k < K.length;k++ ){                  // FOR EACH K 
                             System.out.println("-------------------------------------");
                             System.out.println("N: " + N[j] +", K: " + K[k] + " and Seed: " + seedArray[l]);
                             System.out.println("-------------------------------------");
@@ -96,8 +92,8 @@ public class Experiment {
                                 }
                             }
                             for(int a = 0; a < algorithms.length; a++){
-                                double totalMean = mean[a] / runPerSeed;        // Dividing mean with RunPerSeed
-                                double totalSdev = sDev[a] / runPerSeed;        // Dividing sDev with RunPerSeed
+                                double totalMean = mean[a] / runPerSeed;        // Dividing mean with RunPerSeed to get the total
+                                double totalSdev = sDev[a] / runPerSeed;        // Dividing sDev with RunPerSeed to get the total
                                 sb[a].append(N[j] + " " + totalMean + " " +     // Adding test data with N, mean, sDev
                                                         totalSdev + "\n");
                             }
@@ -111,14 +107,13 @@ public class Experiment {
     }
 
     /**
-     * Warms up the Benchmarking iterations * n times
+     * Warms up the Benchmarking (iterations * n) times
      */
     public static void warmUp() {
 
         System.out.println("Running the warm-up...");
         String correctness = "";
         for (int i = 0; i < modeArray.length; i += 2) {
-            
             for (int j = 0; j < 1; j++) {                                          
                 String inputArray = Producer.generate(modeArray[i],   N[j], seed);
                 String inputPred  = Producer.generate(modeArray[i+1],   N[j], seed);
@@ -129,7 +124,7 @@ public class Experiment {
         }
     }
 
-// HELPER FUNCTIONS ///////////////////////////////////////////////////////////////////////////////////
+/* HELPER FUNCTIONS **/
 
     /** Adds all the test data to the the file and closes the FileWriter
      * 
@@ -159,7 +154,6 @@ public class Experiment {
 
     /** Creates Files for each algorithm and mode
      * 
-     * @param s String of the directory
      * @param a index of the current algorithm
      * @param i index of the current mode
      * @return returns the writer
@@ -176,7 +170,7 @@ public class Experiment {
 
 
     /**
-     * Prints information of the system creating the test
+     * Prints information of the system the test is being run on
      */
     public static void systemInfo() {
         System.out.println();

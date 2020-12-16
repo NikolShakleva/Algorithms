@@ -22,7 +22,7 @@ public class Benchmark {
      * 
      * @param inputArray    String with input data
      * @param inputPred     String with prediction data
-     * @param n             integer of how many times the test will be ran
+     * @param n             integer of how many times the test will be run
      * @param algo          a String array with all the algorithms that will be tested
      * @return              a string Failure or Success
      */
@@ -50,9 +50,11 @@ public class Benchmark {
      * 
      * @param inputArray    String with input data
      * @param inputPred     String with prediction data
-     * @param n             integer of how many times the test will be ran
-     * @param algo          a String array with all the algorithms that will be tested    
-     * @param K             integer of how many buckets the tabular algorithm will store
+     * @param iterations    int of how many iterations will be
+     * @param n             int of how many times the test will be run
+     * @param algo          a String array with all the algorithms that will be tested 
+     * @param N             int for input size   
+     * @param K             int to create an array table with 2^k entries
      * @return              a string Failure or Success  
      */
     public static String run(String inputArray, String inputPred, int iterations, int n, String[] algo, int K, int N) {
@@ -70,10 +72,9 @@ public class Benchmark {
         for(int i=0; i< n; i++) {
             for(int j = 0; j < algorithms ; j++) t[j] = new Timer();
             for(int k = 0; k < iterations ; k++) {
+                //for each algorithm
                 for(int j = 0; j < algorithms ; j++ ) {
-
                     Search search = searchObject(algo[j], inputArray, K);  
-
                     t[j].play();
                     dummy[j] = search.readingQuery(inputPred);
                     t[j].pause();
@@ -91,14 +92,13 @@ public class Benchmark {
     /**
      * searchObject
      * 
-     * Instanciates an object of the algorithm that should be tested and stores them in a
-     * Search array. 
+     * Instanciates an object of the algorithm that should be tested 
      * To add another algorithm to the test write another if else statement below and to the
      * algorithms array in the Experiment class
      * 
      * @param algo      String of the algorithms that should be tested
      * @param input     a String with values to use for the array A in the search object
-     * @param K         int of how many buckets Tabulation will use
+     * @param K         int to create an array table with 2^k entries
      * @return          the searchObject
      */
     public static Search searchObject(String algo, String input, int K){
@@ -115,8 +115,8 @@ public class Benchmark {
      * that means that one or more algorithms are incorrect.
      * 
      * @param a         int of how many algorithms are in the test
-     * @param dummy     an array with the output from the algortihms
-     * @return          a boolean if the output are the same
+     * @param dummy     a String array with the output from the algortihms
+     * @return          a boolean true if the outputs are the same, false otherwise
      */
     public static Boolean correctnessTest(int a, String[] dummy){
         for(int l = 0 ; l < a-1 ; l++) {
@@ -131,7 +131,7 @@ public class Benchmark {
     /**
      * addTime
      * 
-     * adds the running time for each iteration together for the individual
+     * adds up the running times for each iteration for the individual
      * algorithms.
      * 
      * @param a     int of how many algorithms are in the test
@@ -149,10 +149,11 @@ public class Benchmark {
 
     /**
      * 
-     * @param a     int of how many algorithms are in the test
+     * @param a     String array of all algorithms in the test
      * @param n     int of iterations
      * @param st    a double array with st for each algorithm
      * @param sst   a double array with sst for each algorithm
+     * @param N     int for input size
      */
     public static void calculateResult(String[] a, int n, double[] st, double[] sst, int N){
         for(int i = 0; i < a.length ; i++) {
@@ -175,7 +176,7 @@ public class Benchmark {
     /**
      * getSdev
      * 
-     * @return  an array with the standard diviation of the test for each algorithm
+     * @return  an array with the standard deviation of the test for each algorithm
      */
     public static double[] getSdev(){
         return sdev;

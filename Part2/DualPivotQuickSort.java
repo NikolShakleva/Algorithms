@@ -2,11 +2,24 @@ import java.util.Arrays;
 
 public class DualPivotQuickSort implements Sort {
 
+      /**
+     * 
+     * @param A int array the swap has to be called on
+     * @param i int to swap
+     * @param j int to swap
+     */   
     public static  void swap (int [] A, int i, int j ) {
             int temp = A[i];
             A[i] = A[j];
             A[j] = temp;
     }
+
+      /**
+     * 
+     * @param A int array to sort
+     * @param left the left index of where the array starts
+     * @param right the right index of where the array ends
+     */
     public static void sort(int[] A, int left, int right) {
         
         //assume a sentinel A[0] = minus infinity
@@ -38,7 +51,7 @@ public class DualPivotQuickSort implements Sort {
                             g = g-1;
                         }
                         // SWAP A[k] and A[g] and decrement g
-                       swap(A, k, g);
+                        swap(A, k, g);
                         g = g-1;
                         if (A[k] < p ){
                             //SWAP A[k] and A[l] and increment l

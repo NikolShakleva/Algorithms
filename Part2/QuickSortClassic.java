@@ -2,12 +2,24 @@ import java.util.Arrays;
 
 public class QuickSortClassic implements Sort {
 
+     /**
+     * 
+     * @param A int array the swap has to be called on
+     * @param i int to swap
+     * @param j int to swap
+     */    
     public static  void swap (int [] A, int i, int j ) {
         int temp = A[i];
         A[i] = A[j];
         A[j] = temp;
     }
     
+     /**
+     * 
+     * @param A int array to sort
+     * @param left the left index of where the array starts
+     * @param right the right index of where the array ends
+     */
     public static void sort(int [] A, int left, int right) {
 
         if((right - left) >=1) {
@@ -16,7 +28,7 @@ public class QuickSortClassic implements Sort {
             int i = left-1;
             int j= right;
 
-              while ( j>i ) {
+            while ( j>i ) {
 
                 // first increment i and then check
                     while (A[++i] < p) {
@@ -30,7 +42,7 @@ public class QuickSortClassic implements Sort {
                     if (j > i ) {
                         swap(A,i,j);
                     }
-                }
+            }
                  // swap with partitioning element
                    swap(A, i, right);
                   
@@ -38,7 +50,6 @@ public class QuickSortClassic implements Sort {
                    sort (A, i+1, right);
                  
         }
-    
     }
 
     public static void main(String[] args) {

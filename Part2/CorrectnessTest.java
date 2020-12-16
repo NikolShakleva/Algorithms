@@ -8,14 +8,13 @@ import java.util.Arrays;
 
 public class CorrectnessTest {
 
-   private static int[]   N       = {10_000, 20_000, 50_000};
-
+   private static int[]   N     = {10_000, 20_000, 50_000};
    private static int[] seed    = Seed.createSeed(1234);
   
     /**
      * 
-     * @param inputArray
-     * @param algorithm
+     * @param inputArray  int array of all the inputs the test will be run on
+     * @param algorithm the algorithm the test will be run on
      * @return
      */
     public static String test (int[] inputArray, String algorithm) {
@@ -39,12 +38,11 @@ public class CorrectnessTest {
     /**
      * correctnessTest
      * 
-     * Tests that all the output of the algorithms are the same. If they are not
-     * that means that one or more algorithms are incorrect.
+     * Checks that an array sorted by Java's library sort implementation 
+     * and a given array are the same. 
      * 
-     * @param a         int of how many algorithms are in the test
-     * @param dummy     an array with the output from the algortihms
-     * @return          a boolean if the output are the same
+     * @param A  the int array to be tested that it was correctly sorted
+     * @return  a boolean true if the two arrays are the same
      */
     public static Boolean correctnessTest(int[] A){
         int[] libraryArray = A.clone();
@@ -57,8 +55,8 @@ public class CorrectnessTest {
 
     /**
      * 
-     * @param algo
-     * @param mode
+     * @param algo  String array for the algorithms to be tested
+     * @param mode  String array to define the input types the test will run with
      */
     public static void runTest(String[] algo, String[] mode) {
         boolean variable = true;
@@ -71,7 +69,7 @@ public class CorrectnessTest {
                         String value =  test(inputArray, algo[j]);
                         if(value.equals("FAILURE")) {
                             variable = false;
-                            System.out.println("FAILURE. " + algo[j]  + " is not correct for mode: " + mode[i] + " for seed: " + seed[l]);
+                            System.out.println("FAILURE. " + algo[j]  + " is not correct for mode: " + mode[i] + " for seed:" + seed[l] + " for N:" + N[m]);
                             System.out.println("--------------------------------------------------------------------------------------------");
                             System.out.println();
                         }

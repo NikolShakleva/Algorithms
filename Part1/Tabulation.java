@@ -21,6 +21,11 @@ public class Tabulation implements Search {
     int min;
 
 
+    /**
+     * 
+     * @param input String input for creating the table
+     * @param K int to create an array table with 2^k entries
+     */
     public Tabulation(String input, int K){
         k = K;
         buckets = (int) Math.pow(2, k);
@@ -34,7 +39,7 @@ public class Tabulation implements Search {
 
     /**
      * 
-     * @param input
+     * @param input String input for creating the table
      */
     public void makeTabulation(String input){
 
@@ -59,15 +64,15 @@ public class Tabulation implements Search {
         
         int previousIndex=0;
         for(int i = 0; i < size ; i++) {
-            int current = A[i];                     // Finding the value of current index of A
-            int resultMin = min & current;          // Finding the min value for the range of current
-            int resultMax = max | current;          // Finding the max value for the range of current
-            int currentIndex = kthMostInteger(current);    // Finding the index for the current range
+            int current = A[i];                             // Finding the value of current index of A
+            int resultMin = min & current;                  // Finding the min value for the range of current
+            int resultMax = max | current;                  // Finding the max value for the range of current
+            int currentIndex = kthMostInteger(current);     // Finding the index for the current range
 
             if(A[table[currentIndex][0]] < resultMin || i < table[currentIndex][0]) table[currentIndex][0] = i;
             if(A[table[currentIndex][1]] > resultMax || i > table[currentIndex][1]) table[currentIndex][1] = i;
 
-            // overwrite the default 0 value of the table with setting the right boundary to i
+            // overwrite the default 0 value of the table by setting the right boundary to i
             if( currentIndex > previousIndex) {
 
                 for(int j = previousIndex + 1; j < currentIndex; j++) {
@@ -76,7 +81,8 @@ public class Tabulation implements Search {
                 }
             }
                  previousIndex = currentIndex;
-            // overwrite the default 0 valus in the table after the index A[size] with the index of A[size-1]
+
+            // overwrite the default 0 values in the table after the index A[size] with the index of A[size-1]
             if( i==size-1) {
                 for(int l = currentIndex + 1; l < buckets; l++ ) {
                     table[l][0] = i;
@@ -126,11 +132,16 @@ public class Tabulation implements Search {
         
         return  res;
     }
-
+    
+     /**
+     * 
+     * @param input a string with numbers to predict
+     * @return a string with the result of the prediction
+     */
     public String readingQuery(String input){
-        
         var sc = new Scanner(input);
         StringBuilder sb = new StringBuilder();
+
         while (sc.hasNextInt()) {
             int x = sc.nextInt();
             sb.append(pred(x) + " ");
@@ -139,12 +150,10 @@ public class Tabulation implements Search {
     }
 
 
-    /**
-     * 
-     * @param input a string with numbers to predict
-     * @return a string with the result of the prediction
+   
+    /**@param x an int to call predict on
+     * @return the string representation of the result of the prediction
      */
-
     public String pred(int x){
         // var sc = new Scanner(input);
         // StringBuilder sb = new StringBuilder();
