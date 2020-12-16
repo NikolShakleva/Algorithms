@@ -1,6 +1,12 @@
 import java.util.Arrays;
 
 public class QuickSortClassic implements Sort {
+
+    public static  void swap (int [] A, int i, int j ) {
+        int temp = A[i];
+        A[i] = A[j];
+        A[j] = temp;
+    }
     
     public static void sort(int [] A, int left, int right) {
 
@@ -13,28 +19,24 @@ public class QuickSortClassic implements Sort {
               while ( j>i ) {
 
                 // first increment i and then check
-                while (A[++i] < p) {
-                    if(i==right) break;
-                }
-                // first decrement j and then check    
-                while (A[--j] > p) {
-                    if(j==left) break;
-                }
-                // swap elements on on positions i and j when A[i] > p and A[j] < p
-                if (j > i ) {
-                    int temp = A[i];
-                    A[i] = A[j];
-                    A[j] = temp;
-                    
-                }
+                    while (A[++i] < p) {
+                        if(i==right) break;
+                    }
+                    // first decrement j and then check    
+                    while (A[--j] > p) {
+                        if(j==left) break;
+                    }
+                    // swap elements on on positions i and j when A[i] > p and A[j] < p
+                    if (j > i ) {
+                        swap(A,i,j);
+                    }
                 }
                  // swap with partitioning element
-                    int temp = A[i];
-                    A[i] = A[right];
-                    A[right] = temp;
+                   swap(A, i, right);
+                  
                    sort(A, left, i-1);
                    sort (A, i+1, right);
-                
+                 
         }
     
     }
