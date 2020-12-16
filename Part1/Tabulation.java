@@ -42,7 +42,7 @@ public class Tabulation implements Search {
         size = sc.nextInt();
         A = new int[size];
 
-        for (int i = 0; i< size; i++){
+        for (int i = 0; i < size; i++){
             A[i] = sc.nextInt();
         }
         Arrays.sort(A);
