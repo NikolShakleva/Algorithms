@@ -44,7 +44,7 @@ public class Experiment {
     private static final int n = 10;
     private static final int seed = 1234;
     private static final int runPerSeed = 5;
-    private static final int iterations = 10_000;
+    private static final int iterations = 1_000;
     private static String dir;
    
 
