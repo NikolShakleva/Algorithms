@@ -92,16 +92,27 @@ public class BinarySearch implements Search {
      * @param args the command-line arguments
      * 
      */
-    public String pred (String inputPred) {
-        var sc = new Scanner(inputPred);
-        StringBuilder sb = new StringBuilder();
+    public String pred (int x) {
+        // var sc = new Scanner(inputPred);
+        // StringBuilder sb = new StringBuilder();
 
-        while(sc.hasNextInt()){
-            int x = sc.nextInt();
+        // while(sc.hasNextInt()){
+            // int x = sc.nextInt();
             int result = indexOf(x);
 
-            if(result < 0) sb.append("None ");
-            else sb.append(A[result] + " ");
+            if(result < 0)  return("None ");
+            else            return(A[result] + " ");
+        // }
+        // return sb.toString();
+    }
+
+    public String readingQuery(String input){
+        var sc = new Scanner(input);
+        StringBuilder sb = new StringBuilder();
+        
+        while (sc.hasNextInt()) {
+            int x = sc.nextInt();
+            sb.append(pred(x) + " ");
         }
         return sb.toString();
     }

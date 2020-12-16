@@ -127,25 +127,37 @@ public class Tabulation implements Search {
         return  res;
     }
 
+    public String readingQuery(String input){
+        
+        var sc = new Scanner(input);
+        StringBuilder sb = new StringBuilder();
+        while (sc.hasNextInt()) {
+            int x = sc.nextInt();
+            sb.append(pred(x) + " ");
+        }
+        return sb.toString();
+    }
+
+
     /**
      * 
      * @param input a string with numbers to predict
      * @return a string with the result of the prediction
      */
-    public String pred(String input){
-        var sc = new Scanner(input);
-        StringBuilder sb = new StringBuilder();
 
-        while (sc.hasNextInt()) {
-            int x = sc.nextInt();
+    public String pred(int x){
+        // var sc = new Scanner(input);
+        // StringBuilder sb = new StringBuilder();
+
+        // while (sc.hasNextInt()) {
+            // int x = sc.nextInt();
             int index = kthMostInteger(x);
             int left  = table[index][0];
             int right = table[index][1];
 
-            if (left > 0) sb.append(A[left] > x ? A[left-1] + " " : A[indexOf(x, left, right)] + " ");
-            else          sb.append(A[left] > x ? "None "         : A[indexOf(x, left, right)] + " ");       
-        }
-        return sb.toString();   
+            if (left > 0) return(A[left] > x ? A[left-1] + " " : A[indexOf(x, left, right)] + " ");
+            else          return(A[left] > x ? "None "         : A[indexOf(x, left, right)] + " ");       
+        // }
     }
 
     /**
@@ -177,7 +189,7 @@ public class Tabulation implements Search {
 
     public static void main(String[] args) {
         var b = new Tabulation("10 22 -1 10 11 5 -10 20 -25 -30 30", 10);
-        System.out.println(b.pred("1 20 -5 -50"));
+        System.out.println(b.readingQuery("1 20 -5 -50"));
         System.out.println("hi");
 
     }
