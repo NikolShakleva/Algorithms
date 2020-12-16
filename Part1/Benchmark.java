@@ -55,7 +55,7 @@ public class Benchmark {
      * @param K             integer of how many buckets the tabular algorithm will store
      * @return              a string Failure or Success  
      */
-    public static String run(String inputArray, String inputPred, int iterations, int n, String[] algo, int K) {
+    public static String run(String inputArray, String inputPred, int iterations, int n, String[] algo, int K, int N) {
 
         int algorithms = algo.length;
         double[] st    = new double[algorithms];
@@ -82,7 +82,7 @@ public class Benchmark {
             }
             addTime(algorithms, iterations, st, sst);
         }
-        calculateResult(algo, n, st, sst);
+        calculateResult(algo, n, st, sst, N);
 
         return "Success";
     }
@@ -154,10 +154,10 @@ public class Benchmark {
      * @param st    a double array with st for each algorithm
      * @param sst   a double array with sst for each algorithm
      */
-    public static void calculateResult(String[] a, int n, double[] st, double[] sst){
+    public static void calculateResult(String[] a, int n, double[] st, double[] sst, int N){
         for(int i = 0; i < a.length ; i++) {
-            mean[i] = (st[i]/n)/ 1000;
-            sdev[i] = (Math.sqrt((sst[i] - mean[i] * mean[i] * n)/(n-1)))/1000;
+            mean[i] = (st[i]/n)/ (N *2);
+            sdev[i] = (Math.sqrt((sst[i] - mean[i] * mean[i] * n)/(n-1)))/(N*2);
 
             System.out.printf( "%12s  %6.1f mu  +/-  %6.3f %n", a[i], mean[i], sdev[i]);
         }
