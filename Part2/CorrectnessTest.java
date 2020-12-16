@@ -6,12 +6,18 @@ import java.util.Arrays;
  *  java -Xss2g CorrectnessTest
  */
 
+
+/**
+ * the variable algo has two differnt values, the second one is used to test the correctness of removing boundary checks
+ * from the dual and three pivot quicksort algorithms.
+ * 
+ */
 public class CorrectnessTest {
-   private static String[] algo = {"QuickSortClassic","DualPivotQuickSort","ThreePivotQuickSort"};
-   //private static String []algo = {"DualPivotQuickSort",  "DualPivotQuickSortWrong","ThreePivotQuickSort", "ThreePivotQuickSortWrong"};
+   //private static String[] algo = {"QuickSortClassic","DualPivotQuickSort","ThreePivotQuickSort"};
+   private static String[] algo = {"DualPivotQuickSort",  "DualPivotQuickSortWrong","ThreePivotQuickSort", "ThreePivotQuickSortWrong"};
    private static String[] mode = {"increasing", "decreasing", "same", "random", "equal", "semi-sorted"};
 
-   private static int   N       = 50_000;
+   private static int   N       = 200_000;
    private static int[] seed    = Seed.createSeed(1234);
   
    
