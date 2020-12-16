@@ -61,6 +61,7 @@ public class Producer {
 
 
             case "same bucket": 
+                sbvals.append(N + " ");
                 // Making N random smaller numbers than in vals in range from 0 to 47_483_647
                 IntStream numbers = R.ints(N, 0, 1_000);
                 numbers.forEach(e -> vals.add(e));

@@ -31,19 +31,20 @@ public class Experiment {
     private static String[] algorithms      = { "Tabulation", "BinarySearch"};
     private static final String[] modeArray = { "big pred, small ints",     "big pred, small ints pred",
                                                 "non-existent", "non-existent pred",
-                                                "random",       "random pred", "same bucket", "same bucket pred" };
-    // private static final int[] N            = { 500, 1_000, 5_000,100_000, 500_000, 1_000_000};
+                                                "random",       "random pred", 
+                                                "same bucket", "same bucket pred" };
+    private static final int[] N            = {500, 1_000, 5_000,100_000, 500_000, 1_000_000};
     //  private static final int[] K            = { 4, 8, 10, 12 };
-    private static final int[] N            = { 10_000};
-    // private static final int[] K            = {5, 10, 15};
-    private static final int[] K            = {10};
+    //private static final int[] N            = { 10_000};
+    private static final int[] K            = {5, 10, 15};
+    //private static final int[] K            = {10};
 
 
 
-    private static final int n = 2;
+    private static final int n = 10;
     private static final int seed = 1234;
     private static final int runPerSeed = 5;
-    private static final int iterations = 1000;
+    private static final int iterations = 10_000;
     private static String dir;
    
 
@@ -124,7 +125,7 @@ public class Experiment {
                 correctness = Benchmark.warmUp(inputArray, inputPred, 
                                                 (iterations * n), algorithms);
             } 
-            System.out.println("Warm-up " + i+1 + "/" + modeArray.length/2 + " done! " + correctness);
+            System.out.println("Warm-up " + ((i+1)/2) + "/" + modeArray.length/2 + " done! " + correctness);
         }
     }
 
