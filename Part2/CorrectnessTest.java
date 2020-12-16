@@ -10,17 +10,19 @@ public class CorrectnessTest {
    private static String [] algo = {"QuickSortClassic","DualPivotQuickSort","ThreePivotQuickSort"};
    //private static String [] algo = {"DualPivotQuickSort",  "DualPivotQuickSortWrong","ThreePivotQuickSort", "ThreePivotQuickSortWrong"};
    private static String [] mode = {"increasing", "decreasing", "same", "random", "equal", "semi-sorted"};
+
+   private static int N       = 50_000;
    private static int [] seed = Seed.createSeed(1234);
-   private static int N = 50_000;
+  
    
 
     public static String test (int [] inputArray, String algorithm) {
 
-         if(algorithm.equals("QuickSortClassic")) {QuickSortClassic.sort(inputArray, 0, inputArray.length-1);}
-         else if(algorithm.equals("DualPivotQuickSort")) {DualPivotQuickSort.sort(inputArray, 0, inputArray.length-1);}
-         else if(algorithm.equals("DualPivotQuickSortWrong")) {DualPivotQuickSortWrong.sort(inputArray, 0, inputArray.length-1);}
-         else if(algorithm.equals("ThreePivotQuickSort")) {ThreePivotQuickSort.sort(inputArray, 0, inputArray.length-1);}
-         else if(algorithm.equals("ThreePivotQuickSortWrong")) {ThreePivotQuickSortWrong.sort(inputArray, 0, inputArray.length-1);}
+        if     (algorithm.equals("QuickSortClassic"))         {QuickSortClassic.sort(inputArray, 0, inputArray.length-1);}
+        else if(algorithm.equals("DualPivotQuickSort"))       {DualPivotQuickSort.sort(inputArray, 0, inputArray.length-1);}
+        else if(algorithm.equals("DualPivotQuickSortWrong"))  {DualPivotQuickSortWrong.sort(inputArray, 0, inputArray.length-1);}
+        else if(algorithm.equals("ThreePivotQuickSort"))      {ThreePivotQuickSort.sort(inputArray, 0, inputArray.length-1);}
+        else if(algorithm.equals("ThreePivotQuickSortWrong")) {ThreePivotQuickSortWrong.sort(inputArray, 0, inputArray.length-1);}
 
             if(!correctnessTest(inputArray)) return "FAILURE";
         
@@ -54,21 +56,17 @@ public class CorrectnessTest {
     public static void main(String[] args) {
         for (int i = 0; i < mode.length; i++) {
             for(int  l = 0; l< seed.length; l++) {
-                 for(int j = 0; j < algo.length; j++) {
-                     int [] inputArray = Producer.generate(mode[i], N, seed[l]);
+                for(int j = 0; j < algo.length; j++) {
+                    int [] inputArray = Producer.generate(mode[i], N, seed[l]);
                     //  System.out.println("Correctness test for: " + algo[j] + " mode " + mode[i] + " seed: " + seed[l]);
-                     String value =  test(inputArray, algo[j]);
-                     if(value.equals("FAILURE")) {
+                    String value =  test(inputArray, algo[j]);
+                    if(value.equals("FAILURE")) {
                         System.out.println("FAILURE. " + algo[j]  + " is not correct for mode: " + mode[i] + " for seed: " + seed[l]);
                         System.out.println("--------------------------------------------------------------------------------------------");
                         System.out.println();
-                     }
-                    //  System.out.println();
-                 }
-             }
-        }
-        
+                    }
+                }
+            }
+        }   
     }
-
-
 }
