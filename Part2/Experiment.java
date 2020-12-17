@@ -32,7 +32,9 @@ public class Experiment {
     private static final int n = 10;
     private static final int seed = 1234;
     private static final int runPerSeed = 5;
-    private static final int iterations = 10_000;
+    private static final int iterations = 5;
+    private static final int warmUpIterations = 1_000;
+
     private static String dir;
    
     /**
@@ -42,10 +44,10 @@ public class Experiment {
      * @param modeArray String array for the input types the experiment will run with
      * @param N int array for the 
      */
-    public static void experiment(String[] algorithms, String[] modeArray, int[] N) {
+    public static void experiment(String[] algorithms, String[] modeArray, String[] warmUpModes, int[] N) {
         
         systemInfo();                                                       // Prints info about the machine doing the experiment
-        warmUp(algorithms, modeArray, N);                                   // Warmup for the Benchmark                                                              
+        warmUp(algorithms, warmUpModes, N);                                   // Warmup for the Benchmark                                                              
         createDir();                                                        // Creates a directory string for test data
 
         // RUNNING THE EXPERIMENT
@@ -103,7 +105,7 @@ public class Experiment {
      * 
      * @param algorithms String array for the algorithms the warmUp will run with
      * @param modeArray String array for the input types the warmUp will run with
-     * @param N 
+     * @param N int array for input sizes
      */
     public static void warmUp(String[] algorithms, String[]modeArray, int[] N) {
 
@@ -114,7 +116,7 @@ public class Experiment {
                 for (int j = 0; j < 2; j++) {                                          
                     int[] inputArray = Producer.generate(modeArray[i], N[j], seed);
 
-                    correctness = Benchmark.warmUp(inputArray,(iterations * n), algorithms[a]);
+                    correctness = Benchmark.warmUp(inputArray,(warmUpIterations * n), algorithms[a]);
                 }
             } 
             System.out.println("Warm-up " + (i+1) + "/" + (modeArray.length) + " done! " + correctness);

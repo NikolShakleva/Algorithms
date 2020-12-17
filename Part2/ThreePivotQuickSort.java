@@ -37,11 +37,11 @@ public class ThreePivotQuickSort implements Sort {
             int r = A[right];
 
                 if (p > r){
-                int temp = p;
-                p = r;
-                r = temp;
-                A[left] = p;
-                A [right] = r;
+                    int temp = p;
+                    p = r;
+                    r = temp;
+                    A[left] = p;
+                    A [right] = r;
                 }
 
                 if (p > q){             
