@@ -47,7 +47,7 @@ public class Tabulation implements Search {
         size = Integer.parseInt(s[0]);
         A = new int[size];
 
-        for(int i = 0; i < size ; i++){
+        for (int i = 0; i < size; i++){
             A[i] = Integer.parseInt(s[i+1]);
         }
         Arrays.sort(A);
@@ -76,12 +76,12 @@ public class Tabulation implements Search {
             if( currentIndex > previousIndex) fillTable(previousIndex, currentIndex, i);
             
             previousIndex = currentIndex;
-
+            
             // overwrite the default 0 values in the table after the index A[size] with the index of A[size-1]
-            if( i==size-1) fillTable(currentIndex+1, buckets, i);
+            if( i == size-1) fillTable(currentIndex, buckets, i);
         }
     }
-    
+
     /**
      * Fills indexes of the lookup table that does not have any entries in A
      * @param left   first index
@@ -89,7 +89,7 @@ public class Tabulation implements Search {
      * @param i      index of a that should be filled with   
      */
     public void fillTable(int left, int right, int i){
-        for(int j = left; j < right; j++) {
+        for(int j = left+1; j < right; j++) {
             table[j][0] = i;
             table[j][1] = i;
         }
@@ -141,11 +141,11 @@ public class Tabulation implements Search {
      */
     public String readingQuery(String input){
         StringBuilder sb = new StringBuilder();
-        String[] s = input.split(" ");
 
-        for (int i = 0; i< s.length ; i++) {
-            int x = Integer.parseInt(s[i]);
-            sb.append(pred(x) + " ");
+        String[] amount = input.split(" ");
+        for(int i = 0 ; i < amount.length ;i++){
+            int x = Integer.parseInt(amount[i]);
+            sb.append(pred(x));
         }
         return sb.toString();
     }
@@ -194,8 +194,11 @@ public class Tabulation implements Search {
     }
 
     public static void main(String[] args) {
-        var b = new Tabulation("10 22 -1 10 11 5 -10 20 -25 -30 30", 10);
-        System.out.println(b.readingQuery("1 20 -5 -50"));
+        var b = new Tabulation("20 44 5433 2345 65 -654 4 -8765 3 -234 76543 22 -1 10 11 5 -10 20 -25 -30 30", 10);
+        var a = new BinarySearch("20 44 5433 2345 65 -654 4 -8765 3 -234 76543 22 -1 10 11 5 -10 20 -25 -30 30");
+        System.out.println(b.readingQuery("1 20 -5 -50 5432 5 654 -23456 66 432 6 4 -6 54 -76543 38695432 4 432 23456 -6543 54 -4"));
+        System.out.println(a.readingQuery("1 20 -5 -50 5432 5 654 -23456 66 432 6 4 -6 54 -76543 38695432 4 432 23456 -6543 54 -4"));
+        
         System.out.println("hi");
 
     }

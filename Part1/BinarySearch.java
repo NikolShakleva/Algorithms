@@ -47,9 +47,10 @@ public class BinarySearch implements Search {
     public BinarySearch(String input) { 
         String[] s = input.split(" ");
         int size = Integer.parseInt(s[0]);
+
         A = new int[size];
 
-        for(int i = 0; i < size ; i++){
+        for (int i = 0; i < size; i++){
             A[i] = Integer.parseInt(s[i+1]);
         }
         Arrays.sort(A);
@@ -103,27 +104,13 @@ public class BinarySearch implements Search {
 
     public String readingQuery(String input){
         StringBuilder sb = new StringBuilder();
-        String[] s = input.split(" ");
 
-        for (int i = 0; i< s.length ; i++) {
-            int x = Integer.parseInt(s[i]);
-            sb.append(pred(x) + " ");
+        String[] amount = input.split(" ");
+        for(int i = 0 ; i < amount.length ;i++){
+            int x = Integer.parseInt(amount[i]);
+            sb.append(pred(x));
         }
         return sb.toString();
-    }
-
-    public static int[] createArray (String inputArray) {
-        var sc = new Scanner(inputArray);
-        int n = sc.nextInt();
-        int[]A = new int[n];
-       
-
-        for(int i = 0; i < n ; i++){
-            A[i] = sc.nextInt();
-        }
-        Arrays.sort(A);
-        
-        return A;
     }
 
 }
