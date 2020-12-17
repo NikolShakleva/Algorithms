@@ -43,12 +43,12 @@ public class Tabulation implements Search {
      */
     public void makeTabulation(String input){
 
-        var sc = new Scanner(input);
-        size = sc.nextInt();
+        String[] s = input.split(" ");
+        size = Integer.parseInt(s[0]);
         A = new int[size];
 
-        for (int i = 0; i < size; i++){
-            A[i] = sc.nextInt();
+        for(int i = 0; i < size ; i++){
+            A[i] = Integer.parseInt(s[i+1]);
         }
         Arrays.sort(A);
     }
@@ -73,25 +73,26 @@ public class Tabulation implements Search {
             if(A[table[currentIndex][1]] > resultMax || i > table[currentIndex][1]) table[currentIndex][1] = i;
 
             // overwrite the default 0 value of the table by setting the right boundary to i
-            if( currentIndex > previousIndex) {
-
-                for(int j = previousIndex + 1; j < currentIndex; j++) {
-                    table[j][0] = i;
-                    table[j][1] = i;
-                }
-            }
-                 previousIndex = currentIndex;
+            if( currentIndex > previousIndex) fillTable(previousIndex, currentIndex, i);
+            
+            previousIndex = currentIndex;
 
             // overwrite the default 0 values in the table after the index A[size] with the index of A[size-1]
-            if( i==size-1) {
-                for(int l = currentIndex + 1; l < buckets; l++ ) {
-                    table[l][0] = i;
-                    table[l][1] = i;
-                }
-            }
-           
+            if( i==size-1) fillTable(currentIndex+1, buckets, i);
         }
-
+    }
+    
+    /**
+     * Fills indexes of the lookup table that does not have any entries in A
+     * @param left   first index
+     * @param right  last index
+     * @param i      index of a that should be filled with   
+     */
+    public void fillTable(int left, int right, int i){
+        for(int j = left; j < right; j++) {
+            table[j][0] = i;
+            table[j][1] = i;
+        }
     }
 
 
@@ -139,11 +140,11 @@ public class Tabulation implements Search {
      * @return a string with the result of the prediction
      */
     public String readingQuery(String input){
-        var sc = new Scanner(input);
         StringBuilder sb = new StringBuilder();
+        String[] s = input.split(" ");
 
-        while (sc.hasNextInt()) {
-            int x = sc.nextInt();
+        for (int i = 0; i< s.length ; i++) {
+            int x = Integer.parseInt(s[i]);
             sb.append(pred(x) + " ");
         }
         return sb.toString();
@@ -155,18 +156,14 @@ public class Tabulation implements Search {
      * @return the string representation of the result of the prediction
      */
     public String pred(int x){
-        // var sc = new Scanner(input);
-        // StringBuilder sb = new StringBuilder();
 
-        // while (sc.hasNextInt()) {
-            // int x = sc.nextInt();
             int index = kthMostInteger(x);
             int left  = table[index][0];
             int right = table[index][1];
 
             if (left > 0) return(A[left] > x ? A[left-1] + " " : A[indexOf(x, left, right)] + " ");
             else          return(A[left] > x ? "None "         : A[indexOf(x, left, right)] + " ");       
-        // }
+    
     }
 
     /**

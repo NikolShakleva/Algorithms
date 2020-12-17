@@ -44,13 +44,13 @@ public class BinarySearch implements Search {
     /**
      * This class should not be instantiated.
      */
-    public BinarySearch(String inputArray) { 
-        var sc = new Scanner(inputArray);
-        int n = sc.nextInt();
-        A = new int[n];
+    public BinarySearch(String input) { 
+        String[] s = input.split(" ");
+        int size = Integer.parseInt(s[0]);
+        A = new int[size];
 
-        for(int i = 0; i < n ; i++){
-            A[i] = sc.nextInt();
+        for(int i = 0; i < size ; i++){
+            A[i] = Integer.parseInt(s[i+1]);
         }
         Arrays.sort(A);
     }
@@ -93,25 +93,20 @@ public class BinarySearch implements Search {
      * 
      */
     public String pred (int x) {
-        // var sc = new Scanner(inputPred);
-        // StringBuilder sb = new StringBuilder();
 
-        // while(sc.hasNextInt()){
-            // int x = sc.nextInt();
             int result = indexOf(x);
 
             if(result < 0)  return("None ");
             else            return(A[result] + " ");
-        // }
-        // return sb.toString();
+
     }
 
     public String readingQuery(String input){
-        var sc = new Scanner(input);
         StringBuilder sb = new StringBuilder();
-        
-        while (sc.hasNextInt()) {
-            int x = sc.nextInt();
+        String[] s = input.split(" ");
+
+        for (int i = 0; i< s.length ; i++) {
+            int x = Integer.parseInt(s[i]);
             sb.append(pred(x) + " ");
         }
         return sb.toString();
