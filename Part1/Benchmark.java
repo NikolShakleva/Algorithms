@@ -121,6 +121,7 @@ public class Benchmark {
     public static Boolean correctnessTest(int a, String[] dummy){
         for(int l = 0 ; l < a-1 ; l++) {
             if(!dummy[l].equals(dummy[l+1])) {
+                System.out.println(dummy[l].length() + ( " ")+ dummy[l+1].length());
                 System.out.println("Failed, Algorithms are not correct");
                 return false;
             }

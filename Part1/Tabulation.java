@@ -43,12 +43,12 @@ public class Tabulation implements Search {
      */
     public void makeTabulation(String input){
 
-        var sc = new Scanner(input);
-        size = sc.nextInt();
+        String[] s = input.split(" ");
+        size = Integer.parseInt(s[0]);
         A = new int[size];
 
         for (int i = 0; i < size; i++){
-            A[i] = sc.nextInt();
+            A[i] = Integer.parseInt(s[i+1]);
         }
         Arrays.sort(A);
     }
@@ -73,25 +73,26 @@ public class Tabulation implements Search {
             if(A[table[currentIndex][1]] > resultMax || i > table[currentIndex][1]) table[currentIndex][1] = i;
 
             // overwrite the default 0 value of the table by setting the right boundary to i
-            if( currentIndex > previousIndex) {
-
-                for(int j = previousIndex + 1; j < currentIndex; j++) {
-                    table[j][0] = i;
-                    table[j][1] = i;
-                }
-            }
-                 previousIndex = currentIndex;
-
+            if( currentIndex > previousIndex) fillTable(previousIndex, currentIndex, i);
+            
+            previousIndex = currentIndex;
+            
             // overwrite the default 0 values in the table after the index A[size] with the index of A[size-1]
-            if( i==size-1) {
-                for(int l = currentIndex + 1; l < buckets; l++ ) {
-                    table[l][0] = i;
-                    table[l][1] = i;
-                }
-            }
-           
+            if( i == size-1) fillTable(currentIndex, buckets, i);
         }
+    }
 
+    /**
+     * Fills indexes of the lookup table that does not have any entries in A
+     * @param left   first index
+     * @param right  last index
+     * @param i      index of a that should be filled with   
+     */
+    public void fillTable(int left, int right, int i){
+        for(int j = left+1; j < right; j++) {
+            table[j][0] = i;
+            table[j][1] = i;
+        }
     }
 
 
@@ -139,12 +140,12 @@ public class Tabulation implements Search {
      * @return a string with the result of the prediction
      */
     public String readingQuery(String input){
-        var sc = new Scanner(input);
         StringBuilder sb = new StringBuilder();
 
-        while (sc.hasNextInt()) {
-            int x = sc.nextInt();
-            sb.append(pred(x) + " ");
+        String[] amount = input.split(" ");
+        for(int i = 0 ; i < amount.length ;i++){
+            int x = Integer.parseInt(amount[i]);
+            sb.append(pred(x));
         }
         return sb.toString();
     }
@@ -155,18 +156,14 @@ public class Tabulation implements Search {
      * @return the string representation of the result of the prediction
      */
     public String pred(int x){
-        // var sc = new Scanner(input);
-        // StringBuilder sb = new StringBuilder();
 
-        // while (sc.hasNextInt()) {
-            // int x = sc.nextInt();
             int index = kthMostInteger(x);
             int left  = table[index][0];
             int right = table[index][1];
 
             if (left > 0) return(A[left] > x ? A[left-1] + " " : A[indexOf(x, left, right)] + " ");
             else          return(A[left] > x ? "None "         : A[indexOf(x, left, right)] + " ");       
-        // }
+    
     }
 
     /**
@@ -197,8 +194,11 @@ public class Tabulation implements Search {
     }
 
     public static void main(String[] args) {
-        var b = new Tabulation("10 22 -1 10 11 5 -10 20 -25 -30 30", 10);
-        System.out.println(b.readingQuery("1 20 -5 -50"));
+        var b = new Tabulation("20 44 5433 2345 65 -654 4 -8765 3 -234 76543 22 -1 10 11 5 -10 20 -25 -30 30", 10);
+        var a = new BinarySearch("20 44 5433 2345 65 -654 4 -8765 3 -234 76543 22 -1 10 11 5 -10 20 -25 -30 30");
+        System.out.println(b.readingQuery("1 20 -5 -50 5432 5 654 -23456 66 432 6 4 -6 54 -76543 38695432 4 432 23456 -6543 54 -4"));
+        System.out.println(a.readingQuery("1 20 -5 -50 5432 5 654 -23456 66 432 6 4 -6 54 -76543 38695432 4 432 23456 -6543 54 -4"));
+        
         System.out.println("hi");
 
     }

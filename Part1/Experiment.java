@@ -33,14 +33,14 @@ public class Experiment {
                                                 "non-existent", "non-existent pred",
                                                 "random",       "random pred", 
                                                 "same bucket", "same bucket pred" };
-    private static final int[] N            = {500, 1_000, 5_000,100_000, 500_000, 1_000_000};
+    private static final int[] N            = {500, 1_000,2_500, 5_000,100_000, 500_000, 1_000_000};
     // private static final int[] K            = { 4, 8, 10, 12 };
     // private static final int[] N            = { 10_000};
     private static final int[] K            = {5, 10, 15};
-    private static final int n = 10;
+    private static final int n = 5;
     private static final int seed = 1234;
-    private static final int runPerSeed = 5;
-    private static final int iterations = 1_000;
+    private static final int runPerSeed = 3;
+    private static final int iterations = 10;
     private static String dir;
    
 
@@ -118,7 +118,7 @@ public class Experiment {
                 String inputArray = Producer.generate(modeArray[i],   N[j], seed);
                 String inputPred  = Producer.generate(modeArray[i+1],   N[j], seed);
                 correctness = Benchmark.warmUp(inputArray, inputPred, 
-                                                (iterations * n), algorithms);
+                                                (10_000 * n), algorithms);
             } 
             System.out.println("Warm-up " + ((i+1)/2) + "/" + modeArray.length/2 + " done! " + correctness);
         }
